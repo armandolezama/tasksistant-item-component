@@ -11,14 +11,27 @@ export class TasksistantItemComponent extends LitElement {
     */
   constructor() {
     super();
-    this.type = 'empty';
-    this.subtype = '';
-    this.image = '';
-    this.validTypes = ['initial', 'final', 'process', 'empty'];
-    this.processSubtypes = ['decision', 'action', 'instruction'];
-    this.canvasHeight = 100;
-    this.canvasWidth = 100;
-    this.canvasMargin = 20;
+    this.canvasProperties = {
+      canvasMargin: 20,
+      canvasHeight: 100,
+      canvasWidth: 100,
+      figureProperties: {
+        figure: '',
+        sides: {
+          left: '',
+          right: '',
+          down: '',
+          up: ''
+        }
+      },
+      stripes: {
+        left: false,
+        right: false,
+        down: false,
+        up: false
+      },
+      validStripes: undefined
+    };
   };
 
   /**
@@ -26,13 +39,7 @@ export class TasksistantItemComponent extends LitElement {
     */
   static get properties() {
     return {
-      type: {type: String},
-      image: {type: String},
-      validTypes: {type: Array},
-      processSubtypes: {type: Array},
-      canvasHeight: {type: Number},
-      canvasWidth: {type: Number},
-      canvasMargin: {type: Number}
+      canvasProperties: {type: Object}
     };
   };
 
@@ -40,12 +47,53 @@ export class TasksistantItemComponent extends LitElement {
     return styles;
   };
 
+  setCanvasFigure(newFigure) {
+    this.canvasProperties.figureProperties.figure = newFigure;
+    this.deleteStripes();
+    this.requestUpdate();
+  };
+
+  setCanvasFigureComplements(left = '', right = '', up = '', down = '') {
+    this.canvasProperties.figureProperties.sides.left = left;
+    this.canvasProperties.figureProperties.sides.right = right;
+    this.canvasProperties.figureProperties.sides.down = down;
+    this.canvasProperties.figureProperties.sides.up = up;
+    this.requestUpdate();
+  }
+
+  deleteFigure(){
+    this.canvasProperties.figureProperties.figure = '';
+    this.deleteComplements();
+  };
+
+  deleteComplements() {
+    this.canvasProperties.figureProperties.validStripes = undefined;
+    this.requestUpdate();
+  };
+
+  setStripes(left = false, right =false, up = false, down = false) {
+    this.canvasProperties.stripes.up = up;
+    this.canvasProperties.stripes.down = down;
+    this.canvasProperties.stripes.left = left;
+    this.canvasProperties.stripes.right = right;
+    this.canvasProperties.validStripes = {...this.canvasProperties.stripes};
+    this.requestUpdate();
+  }
+
+  deleteStripes() {
+    this.canvasProperties.validStripes = undefined;
+    this.requestUpdate();
+  }
+
   render() {
     return html`
       <tasksistant-canvas
-      .canvasEmptyMarginPixels="${this.canvasMargin}" 
-      .canvasHeightPixels="${this.canvasHeight}" 
-      .canvasWidthPixels="${this.canvasWidth}">
+      .canvasEmptyMarginPixels="${this.canvasProperties.canvasMargin}" 
+      .canvasHeightPixels="${this.canvasProperties.canvasHeight}" 
+      .canvasWidthPixels="${this.canvasProperties.canvasWidth}"
+      .figure="${this.canvasProperties.figureProperties.figure}"
+      .figureComplements="${this.canvasProperties.figureProperties.sides}"
+      .stripes="${this.canvasProperties.validStripes}">
       </tasksistant-canvas>`;
   };
 };
