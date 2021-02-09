@@ -3,7 +3,10 @@ import { css } from 'lit-element';
 export default css`
   :host {
     display: inline-block;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    --canvas-width: var(--tasksistant-canvas--host-canvas-width, 100);
+    --canvas-height: var(--tasksistant-canvas--host-canvas-height, 100);
+    }
 
   :host([hidden]), [hidden] {
     display: none !important; }
@@ -14,9 +17,9 @@ export default css`
   }
 
   tasksistant-canvas {
-    --tasksistant-canvas-canvas-container-width: 100px;
-    --tasksistant-canvas-canvas-container-height: 100px;
-    --tasksistant-canvas-tasksistant-canvas-width: 100px;
-    --tasksistant-canvas-tasksistant-canvas-height: 100px;
+    --tasksistant-canvas-canvas-container-width: var(--canvas-width);
+    --tasksistant-canvas-canvas-container-height: var(--canvas-height);
+    --tasksistant-canvas-tasksistant-canvas-width: var(--canvas-width);
+    --tasksistant-canvas-tasksistant-canvas-height: var(--canvas-height);
   }
   `;
