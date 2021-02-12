@@ -32,6 +32,7 @@ export class TasksistantItemComponent extends LitElement {
       },
       validStripes: undefined
     };
+    this.figures = {};
   };
 
   /**
@@ -39,7 +40,8 @@ export class TasksistantItemComponent extends LitElement {
     */
   static get properties() {
     return {
-      canvasProperties: {type: Object}
+      canvasProperties: {type: Object},
+      figures: {type: Object}
     };
   };
 
@@ -93,7 +95,8 @@ export class TasksistantItemComponent extends LitElement {
       .canvasWidthPixels="${this.canvasProperties.canvasWidth}"
       .figure="${this.canvasProperties.figureProperties.figure}"
       .figureComplements="${this.canvasProperties.figureProperties.sides}"
-      .stripes="${this.canvasProperties.validStripes}">
+      .stripes="${this.canvasProperties.validStripes}"
+      .setOfFigures="${this.figures}">
       </tasksistant-canvas>`;
   };
 };
