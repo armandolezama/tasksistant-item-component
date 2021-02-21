@@ -29,8 +29,7 @@ export class TasksistantItemComponent extends LitElement {
         right: false,
         down: false,
         up: false
-      },
-      validStripes: undefined
+      }
     };
     this.figures = {};
   };
